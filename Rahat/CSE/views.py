@@ -134,3 +134,5 @@ class StudentDetail1(mixins.RetrieveModelMixin,
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
 
+# Path: Rahat\CSE\urls.py
+# Rahat bhai I want biriyani

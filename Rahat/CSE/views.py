@@ -136,3 +136,4 @@ class StudentDetail1(mixins.RetrieveModelMixin,
 
 # Path: Rahat\CSE\urls.py
 # Rahat bhai I want biriyani
+gchg hello

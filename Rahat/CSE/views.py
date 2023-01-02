@@ -135,13 +135,6 @@ class StudentDetail1(mixins.RetrieveModelMixin,
         return self.destroy(request, *args, **kwargs)
 
 # Path: Rahat\CSE\urls.py
-# Rahat bhai I want biriyani
-<<<<<<< HEAD
-<<<<<<< HEAD
-#gchg hello well done rahat bhai
-=======
-#gchg hello
->>>>>>> 7fca5577b96dd0fe924a8868ef6cfe10b65cebf9
-=======
+
 #gchg hello  vjhgujhgkh
->>>>>>> 00604a76bda7ca1a50bc2d8f60d23479e4cd0330
+

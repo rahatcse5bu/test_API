@@ -138,3 +138,4 @@ class StudentDetail1(mixins.RetrieveModelMixin,
 
 #gchg hello  vjhgujhgkh MC lab  Rahat Gmail  ,mmmmmm
 
+#https://www.mathworks.com/mwaccount/register/verify?id=bb769749-f375-4d5d-8d26-c38c98dce332

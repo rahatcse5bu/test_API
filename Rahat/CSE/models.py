@@ -47,7 +47,7 @@ class Category(models.Model):
     Title=models.TextField()
     Decsription= models.TextField(blank=False)
     Image=models.TextField(blank= False)
-    Parent_ID= models.ForeignKey('self',on_delete=models.CASCADE)
+    Parent_ID= models.ForeignKey('self',on_delete=models.CASCADE,default=0,blank=True,null=True)
 
     def __str__(self) -> str:
         return self.Title
@@ -63,15 +63,14 @@ class Product(models.Model):
     Product_Image=models.TextField(blank=True)
     Product_SKU =models.CharField(max_length=255,blank=True)
     Tags= models.TextField(blank=True)
-    Parent_ID=models.ForeignKey("self",on_delete=models.CASCADE)
+    Parent_ID=models.ForeignKey("self",on_delete=models.CASCADE,default=0,blank=True,null=True)
     Stock = models.IntegerField(default=1)
     Price= models.FloatField(blank=False)
     Cat_ID= models.ForeignKey("Category",on_delete=models.CASCADE)
     User_ID = models.ForeignKey("User",on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return self.ID+"-"+self.Product_Title
-
+        return self.ID
 
 
 
@@ -95,20 +94,20 @@ class Invoice(models.Model):
     Is_Self_Delivery = models.BooleanField(default=False)
     Is_online_Payment=models.BooleanField(default=False)
     Time= models.TimeField(auto_now_add=True)
-    Store_ID=models.ForeignKey("Store",on_delete=models.CASCADE)
+    Store_ID=models.ForeignKey("Store",on_delete=models.CASCADE,blank=True,null=True)
     Sales_Manger_ID=models.ForeignKey("User",related_name="Sales_Manager_ID",on_delete=models.CASCADE)
-    Store_Manager_ID= models.ForeignKey("User",related_name="Store_Manager_ID",on_delete=models.CASCADE)
-    Delivery_Boy_ID= models.ForeignKey("User",related_name="Delivery_Boy_ID",on_delete=models.CASCADE)
+    Store_Manager_ID= models.ForeignKey("User",related_name="Store_Manager_ID",on_delete=models.CASCADE,blank=True,null=True)
+    Delivery_Boy_ID= models.ForeignKey("User",related_name="Delivery_Boy_ID",on_delete=models.CASCADE,blank=True,null=True)
     Delivery_Charge = models.FloatField(default=0.0)
     Product_Total_Price= models.FloatField(default=0.0)
-    Discount= models.FloatField(default=0.0)
-    Product_Total_Price=  models.FloatField(default=0.0)
+    Discount= models.FloatField(default=0.0,blank=True)
+    Product_Total_Price=  models.FloatField(default=0.0,blank=True)
     Remarks = models.TextField(blank=True)
     Payment_Status= models.TextField(default="Unpaid")
     Invoice_Status= models.TextField(default="Initial")
 
     def __str__(self) -> str:
-        return self.Invoice_ID+"-"+self.Customer_Name
+        return self.Invoice_ID
 
 
 class Online_Payment(models.Model):
@@ -121,7 +120,7 @@ class Online_Payment(models.Model):
     Status=models.CharField(max_length=255,blank=False)
 
     def __str__(self) -> str:
-        return self.Invoice_ID+"-"+self.Payment_Method+'=>'+self.Amount
+        return self.Invoice_ID
 
 
 
@@ -132,7 +131,7 @@ class Invoice_Product(models.Model):
     Product_Qty=models.IntegerField(default=1)
 
     def __str__(self) -> str:
-        return self.Invoice_ID+"-->"+self.Product_ID
+        return self.Invoice_ID
 
 
 class Notification(models.Model):

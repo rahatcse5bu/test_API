@@ -3,8 +3,10 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from CSE.models import Student
 from CSE.models import User
+from CSE.models import Invoice
 from CSE.serializers import StudentSerializer
 from CSE.serializers import UserSerializer
+from CSE.serializers import InvoiceSerializer
 
 from rest_framework.decorators import api_view
 
@@ -210,3 +212,16 @@ class StudentDetail1(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+
+@csrf_exempt
+def generate_invoice(request):
+
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = InvoiceSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)

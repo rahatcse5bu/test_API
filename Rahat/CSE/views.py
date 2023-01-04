@@ -104,25 +104,19 @@ def user_detail(request, id):
     if request.method == 'GET':
         serializer = UserSerializer(snippet)
         return JsonResponse(serializer.data)
+@csrf_exempt
+def delete_user(request, id):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = User.objects.get(id=id)
+        if request.method == 'DELETE':
+            snippet.delete()
+            return JsonResponse(status=204)
+    except Exception as e:
+        return HttpResponse(status=404)
 
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = UserSerializer(snippet, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = UserSerializer(snippet, data=data,partial= True)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        snippet.delete()
-        return HttpResponse(status=204)
 
 #partial Update..................
 @api_view(["PUT"])
@@ -137,7 +131,7 @@ def UserUpdate(request, id):
             return JsonResponse(serializer.errors, status=400)
 
     except Exception as e:
-        return Response(status=4040)
+        return Response(status=404)
 
 
 
@@ -216,9 +210,3 @@ class StudentDetail1(mixins.RetrieveModelMixin,
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
-
-# Path: Rahat\CSE\urls.py
-
-#gchg hello  vjhgujhgkh MC lab  Rahat Gmail  ,mmmmmm
-
-#https://www.mathworks.com/mwaccount/register/verify?id=bb769749-f375-4d5d-8d26-c38c98dce332

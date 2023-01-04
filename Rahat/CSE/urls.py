@@ -7,6 +7,7 @@ urlpatterns = [
     path('users/', views.user_list),
     path('create_user/', views.create_user),
     path('update_user/<int:id>/', views.UserUpdate),
+    path('delete_user/<int:id>/', views.delete_user),
     path('user/<int:id>/', views.user_detail),
     path('ClassedBasedStudentList/', views.ClassBasedStudentList.as_view()),
     path('ClassedBasedStudentDetail/<str:roll>/', views.ClassedBasedStudentDetail.as_view()),

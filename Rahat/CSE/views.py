@@ -304,8 +304,8 @@ def delete_product(request, id):
             res= {"message":"Product Deleted!",status:204}
             return JsonResponse(res)
     except Exception as e:
-        res= {"message":"Product Deleted!",status:404}
-        return HttpResponse(res)
+        res= {"message":"Product Deleted!",'status':404}
+        return JsonResponse(res)
 
 
 #partial Update..................
@@ -316,11 +316,11 @@ def update_product(request, id):
         serializer = ProductSerializer(snippet, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return JsonResponse(serializer.data)
         else:
             return JsonResponse(serializer.errors, status=400)
 
     except Exception as e:
-        return Response(status=404)
+        return JsonResponse(status=404)
 
 

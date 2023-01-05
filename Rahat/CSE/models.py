@@ -47,7 +47,7 @@ class Category(models.Model):
     Title=models.TextField()
     Decsription= models.TextField(blank=False)
     Image=models.TextField(blank= False)
-    Parent_ID= models.ForeignKey('self',on_delete=models.CASCADE,default=0,blank=True,null=True)
+    Parent_ID= models.ForeignKey('self',on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self) -> str:
         return self.Title
@@ -63,10 +63,10 @@ class Product(models.Model):
     Product_Image=models.TextField(blank=True)
     Product_SKU =models.CharField(max_length=255,blank=True)
     Tags= models.TextField(blank=True)
-    Parent_ID=models.ForeignKey("self",on_delete=models.CASCADE,default=0,blank=True,null=True)
+    Parent_ID=models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
     Stock = models.IntegerField(default=1)
     Price= models.FloatField(blank=False)
-    Cat_ID= models.ForeignKey("Category",on_delete=models.CASCADE)
+    Cat_ID= models.ForeignKey("Category",on_delete=models.CASCADE,blank=True,null=True,default=1)
     User_ID = models.ForeignKey("User",on_delete=models.CASCADE)
 
     def __str__(self) -> str:

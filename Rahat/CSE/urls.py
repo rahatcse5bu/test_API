@@ -4,6 +4,8 @@ from CSE import views
 urlpatterns = [
     path('students/', views.student_list),
     path('students/<str:roll>/', views.student_detail),
+
+    
     path('users/', views.user_list),
     path('create_user/', views.create_user),
     path('update_user/<int:id>/', views.UserUpdate),
@@ -15,6 +17,12 @@ urlpatterns = [
     path('update_product/<int:id>/', views.update_product),
     path('delete_product/<int:id>/', views.delete_product),
     path('product/<int:id>/', views.single_product_detail),
+
+    path('categories/', views.category_list),
+    path('create_category/', views.create_category),
+    path('update_category/<int:id>/', views.update_category),
+    path('delete_category/<int:id>/', views.delete_category),
+    path('category/<int:id>/', views.single_category_detail),
 
 
 

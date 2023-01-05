@@ -324,3 +324,84 @@ def update_product(request, id):
         return JsonResponse(status=404)
 
 
+# Product Section Ends 
+
+
+
+# Products Section Starts here 
+
+@csrf_exempt
+def category_list(request):
+ 
+    if request.method == 'GET':
+        snippets = Category.objects.all()
+        serializer = CategorySerializer(snippets, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = CategorySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+@csrf_exempt
+def create_category(request):
+
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = CategorySerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+
+
+
+
+@csrf_exempt
+def single_category_detail(request, id):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Category.objects.get(ID=id)
+    except Category.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = CategorySerializer(snippet)
+        return JsonResponse(serializer.data)
+@csrf_exempt
+def delete_category(request, id):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Category.objects.get(ID=id)
+        if request.method == 'DELETE':
+            snippet.delete()
+            res= {"message":"Product Deleted!",status:204}
+            return JsonResponse(res)
+    except Exception as e:
+        res= {"message":"Product Deleted!",'status':404}
+        return JsonResponse(res)
+
+
+#partial Update..................
+@api_view(["PUT"])
+def update_category(request, id):
+    try:
+        snippet = Category.objects.get(ID=id)
+        serializer = CategorySerializer(snippet, data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        else:
+            return JsonResponse(serializer.errors, status=400)
+
+    except Exception as e:
+        return JsonResponse(status=404)
+
+

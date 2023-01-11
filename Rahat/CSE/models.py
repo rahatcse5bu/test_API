@@ -53,8 +53,6 @@ class Category(models.Model):
         return self.Title
 
 
-
-
 class Product(models.Model):
     ID= models.AutoField(primary_key=True)
     Product_Title= models.TextField(blank=False)
@@ -64,9 +62,12 @@ class Product(models.Model):
     Product_SKU =models.CharField(max_length=255,blank=True)
     Tags= models.TextField(blank=True)
     Parent_ID=models.ForeignKey("self",on_delete=models.CASCADE,blank=True,null=True)
-    Stock = models.IntegerField(default=1)
     Price= models.FloatField(blank=False)
-    Cat_ID= models.ForeignKey("Category",on_delete=models.CASCADE,blank=True,null=True,default=1)
+    Product_IN = models.IntegerField(default=0)
+    Product_OUT = models.IntegerField(default=0)
+    Product_Date= models.DateField(blank=True,null=True)
+    Product_Expiry= models.DateField(blank=True,null=True)
+    Cat_ID= models.ForeignKey("Category",on_delete=models.CASCADE,blank=True,null=True)
     User_ID = models.ForeignKey("User",on_delete=models.CASCADE)
 
     def __str__(self) -> str:

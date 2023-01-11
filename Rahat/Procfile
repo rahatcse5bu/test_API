@@ -1,0 +1,1 @@
+ web: gunicorn bucse.wsgi.py --log-file -
